@@ -1,0 +1,165 @@
+#include <iostream>
+#include <typeinfo>
+
+int mulMat(int* pS){
+  int length = sizeof(pS)/sizeof(pS[0]);
+  std::cout << "length of pS : " << length << "\n";
+
+  std::cout << "(&pS) : " << typeid(&pS).name() << " " << &pS << "\n";
+  std::cout << "print(pS) : " << typeid(pS).name() << " " << pS << "\n";
+  std::cout << "print(*pS) : " << typeid(*pS).name() << " " << *pS << "\n";
+  std::cout << "print(pS[0]) : " << typeid(pS[0]).name() << " " << pS[0] << "\n";
+  std::cout << "print(pS[1]) : " << typeid(pS[1]).name() << " " << pS[1] << "\n";
+  std::cout << "print(pS[2]) : " << typeid(pS[2]).name() << " " << pS[2] << "\n";
+
+  std::cout << std::endl << std::endl;
+  
+  
+  return 0;
+}
+
+
+// 포인터가 주소 연산을 하려면 자신이 가리키는 대상의 크기가 정해져있어야 하는데 배열 표기에서 모두 비우게 되면 오류가 발생한다.
+
+// https://m.blog.naver.com/PostView.nhn?blogId=tipsware&logNo=221329432324&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
+// Multi-dimensional arrays are not very well supported by the built-in components of C and C++. You can pass an N-dimension array only when you know N-1 dimensions at compile time:
+
+// https://stackoverflow.com/questions/10164263/how-to-pass-two-dimensional-array-of-an-unknown-size-to-a-function
+
+int mulMat2D(int pS[][5]){
+  int lengthTot = sizeof(pS)/sizeof(pS[0][0]);
+  int lengthCol = sizeof(pS)/sizeof(pS[0]);
+
+  return 0;
+}
+
+
+int mulMat3D(int pS[][3][4]){
+  std::cout << "mulMat3d has been called... ******************\n";
+  int length = sizeof(*pS)/sizeof(pS[0]);
+  std::cout << "sizeof(*pS) : " << sizeof(*pS) << "\n";
+  std::cout << "sizeof(*pS[0]) : " << sizeof(*pS[0]) << "\n";
+  std::cout << "length : 2 ? || " << length << "\n";
+  std::cout << std::endl << std::endl;
+  for(int i=0; i<length; i++){
+    for(int j=0; j<3; j++){
+      for(int k=0; k<4; k++){
+        std::cout << "addr of pS(" << i << " " << j << " " << k << ")" << &pS[i][j][k] << "\n";
+      }
+    }
+  }
+  return 0;
+}
+int main() {
+  std::cout << "Hello World!\n";
+  int S[3] = {1, 2, 3};
+  mulMat(S);
+
+  std::cout << "(&S) : " << typeid(&S).name() << " " << &S << "\n";
+  std::cout << "(&S[0]) : " << typeid(&S[0]).name() << " " << &S[0] << "\n";
+
+  std::cout << "(S) : " << typeid(S).name() << " " << S << "\n";
+  std::cout << "(*S) : " << typeid(*S).name() << " " << *S << "\n";
+  std::cout << "(S[0]) : " << typeid(S[0]).name() << " " << S[0] << "\n";
+  std::cout << "(S[1]) : " << typeid(S[1]).name() << " " << S[1] << "\n";
+  std::cout << "(S[2]) : " << typeid(S[2]).name() << " " << S[2] << "\n";
+  // array 변수 S는 S[0] 객체의 주소를 값으로 갖는다.
+  // array pointer 변수 pS는 matMul 함수를 통해 array 변수 S를 파라미터로서 선언(?) 할당(?)된다.
+  // 따라서 array pointer 변수 pS는 array 변수 S와 동일한 값, 즉 S[0] 객체의 주소를 값으로 갖는다.
+
+  // int S[2][2] = {
+  //   {10, 11},
+  //   {20, 21}
+  // };
+
+  // 이차원 배열을 함수의 파라미터로 전달하려면 어떻게 해야 할까?
+  // 이중 포인터를 사용해야 하나?
+  int R[2][2] = {
+    {100, 101},
+    {200, 201}
+  };
+  // mulMat2D(R[0]);
+  std::cout << std::endl << std::endl;
+
+  std::cout << "(R) : " << typeid(R).name() << " " << R << "\n";
+  std::cout << "(*R) : " << typeid(*R).name() << " " << *R << "\n";
+  std::cout << "(*R[0]) : " << typeid(*R[0]).name() << " " << *R[0] << "\n";
+  std::cout << "(*R[1]) : " << typeid(*R[1]).name() << " " << *R[1] << "\n";
+
+  std::cout << "(R[0][0]) : " << typeid(R[0][0]).name() << " " << R[0][0] << "\n";
+  // // std::cout << "(*R[1]) : " << typeid(*R[1]).name() << " " << *R[1] << "\n";
+
+  int Q[2][3][4] = {
+    {
+      {1000, 1001, 1002, 1003},
+      {2000, 2001, 2002, 2003},
+      {3000, 3001, 3002, 3003},
+    },
+    {
+      {100, 101, 102, 103},
+      {200, 201, 202, 203},
+      {300, 301, 302, 303},
+    }
+  };
+
+  std::cout << std::endl << std::endl;
+
+  std::cout << "(Q) : " << typeid(Q).name() << " " << Q << "\n";
+  std::cout << "(*Q) : " << typeid(*Q).name() << " " << *Q << "\n";
+  std::cout << "(*Q[0]) : " << typeid(*Q[0]).name() << " " << *Q[0] << "\n";
+  std::cout << "(*Q[1]) : " << typeid(*Q[1]).name() << " " << *Q[1] << "\n";
+  // std::cout << "(*Q[2]) : " << typeid(*Q[2]).name() << " " << *Q[2] << "\n";
+  // Q[2] 는 범위를 벗어남.
+  std::cout << std::endl;
+  std::cout << "(*Q[0][0]) : " << typeid(*Q[0][0]).name() << " " << *Q[0][0] << "\n";
+  std::cout << "(&*Q[0][0]) : " << typeid(&*Q[0][0]).name() << " " << &*Q[0][0] << "\n";
+  std::cout << "(Q[0][0]) : " << typeid(Q[0][0]).name() << " " << Q[0][0] << "\n";
+  std::cout << "(*Q[1][0]) : " << typeid(*Q[1][0]).name() << " " << *Q[1][0] << "\n";
+  std::cout << std::endl;
+  std::cout << "(Q[0][0]) : " << typeid(Q[0][0]).name() << " " << Q[0][0] << "\n";
+  std::cout << "(Q[1][0]) : " << typeid(Q[1][0]).name() << " " << Q[1][0] << "\n";
+
+  std::cout << std::endl;
+  std::cout << "(Q) : " << typeid(Q).name() << " " << Q << "\n";
+  std::cout << "(*Q) : " << typeid(*Q).name() << " " << *Q << "\n";
+  std::cout << "(**Q) : " << typeid(**Q).name() << " " << **Q << "\n";
+  std::cout << "(***Q) : " << typeid(***Q).name() << " " << ***Q << "\n";
+
+  // 3차원 배열의 메모리 구성 구조를 살펴보자.
+  // 결론
+  // [i_1][i_2]...[i_n] 제일 마지막 인덱스 i_n 부터 i_1 까지 순서대로 메모리에 4byte씩 차지한다.
+  std::cout << std::endl << std::endl;
+  for(int i=0; i<2; i++){
+    for(int j=0; j<3; j++){
+      for(int k=0; k<4; k++){
+        std::cout << "addr of Q(" << i << " " << j << " " << k << ")" << &Q[i][j][k] << "\n";
+      }
+    }
+  }
+  // std::cout << "addr of addr of Q(1, 2, 2)" << &(&Q[1][2][2]) << "\n"; // 컴파일 에러
+  std::cout << "(Q[1][2][3]) : " << typeid(Q[1][2][3]).name() << " " << Q[1][2][3] << "\n";
+  std::cout << "(&Q[1][2][3]) : " << typeid(&Q[1][2][3]).name() << " " << &Q[1][2][3] << "\n";
+  std::cout << std::endl;
+  // *으로 하위 배열 접근 후 [n]으로 아이템 최종 접근
+  // 결론
+  // **...*Q 다중 * 연산자 더하기 배열 변수명 Q은 최종 아이템 접근까지 제일 첫번째 [0][0]...[0] 아이템의 주소를 반환한다.
+  std::cout << "(Q) : " << typeid(Q).name() << " " << Q << "\n";
+  std::cout << std::endl;
+  std::cout << "(*Q) : " << typeid(*Q).name() << " " << *Q << "\n";
+  std::cout << "(*Q[0][0]) : " << typeid(*Q[0][0]).name() << " " << *Q[0][0] << "\n";
+  std::cout << std::endl;
+  std::cout << "(**Q) : " << typeid(**Q).name() << " " << **Q << "\n";
+  std::cout << "(**Q[0]) : " << typeid(**Q[0]).name() << " " << **Q[0] << "\n";
+  std::cout << std::endl;
+  std::cout << "(***Q) : " << typeid(***Q).name() << " " << ***Q << "\n";
+  std::cout << "(***Q) : " << typeid(***Q).name() << " " << ***Q << "\n";
+  std::cout << std::endl << std::endl;
+  
+  std::cout << "(R) : " << typeid(R).name() << " " << R << "\n";
+  std::cout << "(&*R) : " << typeid(&*R).name() << " " << &*R << "\n";
+
+  
+  std::cout << std::endl << std::endl;
+  mulMat3D(Q);
+}
