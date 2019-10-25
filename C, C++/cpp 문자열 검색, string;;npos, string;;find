@@ -1,0 +1,19 @@
+int main () {
+    string str = "hello world";
+        // case 1
+        if (str.find("worlds") == string::npos) {
+        // case 2
+        // if (str.find("world") == string::npos) {
+            cout << "true";
+        }
+        else {
+            cout << "else";
+        }
+}
+
+// string::find // 이것은 찾는 문자열의 첫번째 인덱스를 반환하는 함수이다.
+// string::npos // 찾는 문자열이 없는 경우에는 string::npos를 반환한다.
+
+
+// 출력 : true
+// 출력2 : else
