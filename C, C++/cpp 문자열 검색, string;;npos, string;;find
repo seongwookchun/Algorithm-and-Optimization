@@ -1,3 +1,5 @@
+// 출처 : https://blankspace-dev.tistory.com/314
+
 int main () {
     string str = "hello world";
         // case 1
