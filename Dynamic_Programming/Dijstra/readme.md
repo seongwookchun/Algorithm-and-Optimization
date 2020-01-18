@@ -1,5 +1,7 @@
- 	![test_exgood.png](이미지)
+ 	![이미지](test_exgood.png)
+  
   ㅇ
+  ![이미지](./test_exgood.png)
   !(이미지)[./test_exgood.png]
 
 Here's our logo (hover to see the title text):
