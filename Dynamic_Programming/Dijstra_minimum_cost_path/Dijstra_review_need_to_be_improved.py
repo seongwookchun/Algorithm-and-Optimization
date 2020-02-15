@@ -30,7 +30,7 @@ def dijstra(node_s, G):
     D[node_s] = 0
     
     while q:
-        q = sorted(q, key=lambda x: D[x])#[0]
+        q = sorted(q, key=lambda x: D[x])    # sorted, key arg의 사용법을 익혀두자.
         print(q)
         print(D)
         node_cur = q.pop(0)
