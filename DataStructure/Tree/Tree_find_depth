@@ -1,0 +1,47 @@
+# Depth is number of generations of children.
+class Node():
+    def __init__(self, idx):
+        self.idx = idx
+        self.children = list()
+    def connect(self, node):
+        self.children.append(node)
+    
+root = Node(0)
+c1 = Node(1)
+c2 = Node(2)
+c3 = Node(3)
+c4 = Node(4)
+c5 = Node(5)
+c6 = Node(6)
+
+root.connect(c1)
+root.connect(c2)
+
+c1.connect(c3)
+c1.connect(c4)
+
+c4.connect(c5)
+c4.connect(c6)
+
+# print(root.children[0].children[1].children[0])
+# print(root.children[0].children[1].children[0].idx)
+
+# depth of tree
+def depth(node):
+    res = 0
+    l_depths = list()
+    if len(node.children) == 0:
+        return 0
+    else:
+        for child in node.children:
+            l_depths.append(depth(child))
+        res += 1
+    return res + max(l_depths)
+    
+print(depth(root))
+print(depth(c1))
+print(depth(c2))
+print(depth(c3))
+print(depth(c4))
+print(depth(c5))
+print(depth(c6))
